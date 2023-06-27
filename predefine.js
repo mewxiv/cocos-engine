@@ -115,7 +115,7 @@ var _global = typeof window === 'undefined' ? global : window;
 /*
  * @param defaultValue - The default value is only used in the editor or preview.
  */
-function defineMacro (name, defaultValue) {
+function defineMacro(name, defaultValue) {
     // if "global_defs" not preprocessed by uglify, just declare them globally,
     // this may happened in release version's preview page.
     if (typeof _global[name] === 'undefined') {
@@ -123,18 +123,16 @@ function defineMacro (name, defaultValue) {
     }
 }
 
-function defineDeprecatedMacroGetter (name, defaultValue) {
+function defineDeprecatedMacroGetter(name, defaultValue) {
     if (typeof _global[name] === 'undefined') {
         Object.defineProperty(_global, name, {
-            get: function () {
+            get: function() {
                 let recommandedUsage;
                 if (name === 'CC_WECHATGAMESUB') {
                     recommandedUsage = 'cc.sys.platform === cc.sys.WECHAT_GAME_SUB';
-                }
-                else if (name === 'CC_WECHATGAME') {
-                    recommandedUsage = 'cc.sys.platform === cc.sys.WECHAT_GAME';                    
-                }
-                else if (name === 'CC_QQPLAY') {
+                } else if (name === 'CC_WECHATGAME') {
+                    recommandedUsage = 'cc.sys.platform === cc.sys.WECHAT_GAME';
+                } else if (name === 'CC_QQPLAY') {
                     recommandedUsage = 'cc.sys.platform === cc.sys.QQ_PLAY';
                 }
                 cc.warnID(1400, name, recommandedUsage);
@@ -144,7 +142,7 @@ function defineDeprecatedMacroGetter (name, defaultValue) {
     }
 }
 
-function defined (name) {
+function defined(name) {
     return typeof _global[name] === 'object';
 }
 
@@ -169,10 +167,9 @@ if (CC_BUILD) {
     _global.CC_TEST = CC_TEST;
     _global.CC_RUNTIME = CC_RUNTIME;
     _global.CC_JSB = CC_JSB;
-}
-else {
-    defineMacro('CC_DEV', true);    // (CC_EDITOR && !CC_BUILD) || CC_PREVIEW || CC_TEST
-    defineMacro('CC_DEBUG', true);  // CC_DEV || Debug Build
+} else {
+    defineMacro('CC_DEV', true); // (CC_EDITOR && !CC_BUILD) || CC_PREVIEW || CC_TEST
+    defineMacro('CC_DEBUG', true); // CC_DEV || Debug Build
     defineMacro('CC_JSB', defined('jsb'));
     defineMacro('CC_NATIVERENDERER', defined('jsb'));
     defineMacro('CC_SUPPORT_JIT', true);
@@ -211,5 +208,5 @@ if (CC_DEV) {
  * If you post a bug to forum, please attach this flag.
  * @property {String} ENGINE_VERSION
  */
-const engineVersion = '2.0.0 alpha';
+const engineVersion = '2.4.11';
 _global['CocosEngine'] = cc.ENGINE_VERSION = engineVersion;
